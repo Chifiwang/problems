@@ -33,27 +33,21 @@ int main(void)
 
     assert(v_min <= v_max);
     while (v_min <= v_max) {
-        v = ((v_max + v_min) >> 1) % p;
+        v = ((v_max + v_min) >> 1);
         vi = 0;
         ti = 0;
 
         for (int i = 0; i < N; ++i) {
             long long ai = a[i] % p;
             long long bi = b[i] % p;
-            // while (ai >= v) {
-            //     vi += ai;
-            //     ai -= bi;
-            //     ti++;
-            //     if (vi > p) {
-            //         vi %= p;
-            //     }
-            // }
+
             if (ai < v) {
                 continue;
             }
             unsigned long long tmp = ai - v;
             unsigned long long k = tmp / bi + 1;
-            vi += ((k * (ai + ai - (k - 1) * bi)) >> 1) % p;
+            k %= p;
+            vi += ((k * (ai + ai - (k - 1) * bi)) / 2) % p;
             vi %= p;
             ti += k;
             if (ti > T) {
@@ -69,6 +63,29 @@ int main(void)
             v_min = v + 1;
         }
     }
+
+    if (ti > T) {
+        v++;
+        vi = 0;
+        ti = 0;
+
+        for (int i = 0; i < N; ++i) {
+            long long ai = a[i] % p;
+            long long bi = b[i] % p;
+
+            if (ai < v) {
+                continue;
+            }
+            unsigned long long tmp = ai - v;
+            unsigned long long k = tmp / bi + 1;
+            k %= p;
+            vi += ((k * (ai + ai - (k - 1) * bi)) / 2) % p;
+            vi %= p;
+            ti += k;
+        }
+        vi += (v - 1) * (T - ti);
+    }
+
 
     std::cout << vi << std::endl;
     return 0;
