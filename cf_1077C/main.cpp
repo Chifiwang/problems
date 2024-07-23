@@ -13,7 +13,10 @@ int main(void)
     int n;
     std::cin >> n;
 
+<<<<<<< HEAD
     std::vector<std::pair<int, int> > data;
+=======
+>>>>>>> 6c89c5a3e413e6ce1879315edc9ed55973bcc1ee
     data.reserve(n);
 
     long long tot = 0;
