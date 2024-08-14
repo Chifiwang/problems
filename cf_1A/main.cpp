@@ -6,6 +6,9 @@ int main(void) {
     std::cin.sync_with_stdio(false);
 
     int n, m, a;
+    n = 0;
+    m = 1;
+    a = 2;
 
     std::cin >> n >> m >> a;
 

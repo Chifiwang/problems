@@ -44,9 +44,9 @@ int main(void)
             if (ai < v) {
                 continue;
             }
-            unsigned long long tmp = ai - v;
-            unsigned long long k = tmp / bi + 1;
-            k %= p;
+            unsigned long long tmp = (ai - v) % p;
+            unsigned long long k = (tmp / bi + 1) % p;
+            // k %= p;
             vi += ((k * (ai + ai - (k - 1) * bi)) / 2) % p;
             vi %= p;
             ti += k;
@@ -76,15 +76,21 @@ int main(void)
             if (ai < v) {
                 continue;
             }
-            unsigned long long tmp = ai - v;
-            unsigned long long k = tmp / bi + 1;
-            k %= p;
+            unsigned long long tmp = (ai - v) % p;
+            unsigned long long k = (tmp / bi + 1) % p;
+            // k %= p;
             vi += ((k * (ai + ai - (k - 1) * bi)) / 2) % p;
             vi %= p;
             ti += k;
         }
-        vi += (v - 1) * (T - ti);
+        // vi += ((v - 1) * (T - ti)) % p;
+        vi += (((v - 1) % p) * ((T - ti) % p)) % p;
+    } else if (ti < T) {
+        // vi += ((v - 1) * (T - ti)) % p;
+        vi += (((v - 1) % p) * ((T - ti) % p)) % p;
     }
+
+    vi %= p;
 
 
     std::cout << vi << std::endl;
